@@ -1,6 +1,15 @@
-graph TD
-    Client[Хэрэглэгч/Postman] --> Express[Express API Server]
-    Express --> Routes[Routes/Замууд]
-    Routes --> Controllers[Controllers/Логик]
-    Controllers --> Models[Models/Өгөгдлийн бүтэц]
-    Models --> MongoDB[(MongoDB Database)]
+# System Architecture
+
+## Overview
+Энэхүү систем нь MVC (Model-View-Controller) загварт суурилсан REST API бүтэцтэй байна.
+
+## Diagram
+```mermaid
+graph LR
+    User([User/Client]) <--> API[Express API Server]
+    subgraph Backend
+        API <--> Routes[Routes]
+        Routes <--> Controllers[Controllers]
+        Controllers <--> Models[Mongoose Models]
+    end
+    Models <--> DB[(MongoDB Atlas)]
