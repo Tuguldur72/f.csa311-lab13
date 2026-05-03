@@ -1,0 +1,76 @@
+openapi: 3.0.0
+info:
+  title: Personal Task Tracker API
+  version: 1.0.0
+  description: Хэрэглэгчийн өдөр тутмын ажлыг удирдах API.
+servers:
+  - url: http://localhost:3000/api
+paths:
+  /tasks:
+    get:
+      summary: Бүх ажлын жагсаалт авах
+      responses:
+        '200':
+          description: Амжилттай
+    post:
+      summary: Шинэ ажил үүсгэх
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                priority:
+                  type: string
+                  enum: [Low, Medium, High]
+      responses:
+        '201':
+          description: Ажил амжилттай үүсгэгдсэн
+  /tasks/{id}:
+    get:
+      summary: Ажлыг ID-аар нь хайх
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Амжилттай
+        '404':
+          description: Ажил олдсонгүй
+    put:
+      summary: Ажлын мэдээллийг засах
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Амжилттай засагдсан
+    delete:
+      summary: Ажлыг устгах
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Амжилттай устгагдсан

@@ -22,3 +22,16 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Сервер ${PORT} порт дээр ажиллаж байна.`);
 });
+
+
+
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+
+app.use(helmet()); // Header аюулгүй байдал
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 минут
+  max: 100 // Нэг IP-аас дээд тал нь 100 хүсэлт
+});
+app.use('/api/', limiter);
